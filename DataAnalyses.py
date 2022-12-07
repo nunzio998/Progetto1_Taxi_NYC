@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as pd
+import numpy as np
 import matplotlib as pl
 
 from TaxiTripFile import TaxiTripFile
@@ -32,20 +32,20 @@ class DataAnalyses:
         :param taxiZoneObject:
         :return:
         """
-        pulito = taxiTripObject.getDataFrame()
+        objPulito = taxiTripObject
         i = 0
         while i < len(taxiTripObject.getDataFrame()):
-            if pulito['PULocationID'].get(i) < 0 or pulito['PULocationID'].get(i) > numZones:
-                pulito.drop(i)
+            if objPulito.getDataFrame()['PULocationID'].get(i) < 0 or objPulito.getDataFrame()['PULocationID'].get(i) > numZones:
+                objPulito.getDataFrame().drop(i)
                 #print('ELIMINATO!!!!!!!!', pulito['PULocationID'].get(i))
-            if pulito['DOLocationID'].get(i) < 0 or pulito['DOLocationID'].get(i) > numZones:
-                pulito.drop(i)
+            if objPulito.getDataFrame()['DOLocationID'].get(i) < 0 or objPulito.getDataFrame()['DOLocationID'].get(i) > numZones:
+                objPulito.getDataFrame().drop(i)
                 #print('ELIMINATO!!!!!!!!', pulito['PULocationID'].get(i))
             i += 1
-        return pulito
+        return objPulito
 
-    def getTaxiTripDataFrame(self):
+    def getTaxiTripDataFrame(self) -> pd.DataFrame :
         return self.taxiTrip.getDataFrame()
 
-    def getTaxiZoneDataFrame(self):
+    def getTaxiZoneDataFrame(self) -> pd.DataFrame:
         return self.taxiZone.getDataFrame()
