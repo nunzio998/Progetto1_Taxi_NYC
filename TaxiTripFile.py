@@ -1,33 +1,33 @@
+import encodings
+
 import pandas as pd
 import numpy as np
 
 
 class TaxiTripFile:
     def __init__(self, file):
-        self.file = pd.read_parquet(file)
-        pass
+        self.dataFrame = pd.read_parquet(file)
 
     def getDataFrame(self) -> pd.DataFrame:
         """
         Ritorna il dataframe relativo al file passato al costruttore della classe
         :return: DataFrame of the input file
         """
-        return self.file
+        return self.dataFrame
 
-    def getMonthDataFrame(self, month: str) -> pd.DataFrame:
+    def getCheckedDataFrame(self) -> pd.DataFrame:
         """
-        restituisce il dataframe con i dati relativi al mese specificato.
-        Utilizza la funzione di check prima di ritornare il dato
-        :param month:
-        :return:
+        Ritorna il dataframe 'pulito' relativo al file passato al costruttore della classe
+        :return: DataFrame of the input file
         """
-        pass
+        return self.checkDataFrame(self.dataFrame)
 
-    def checkDataFrame(self, dataFrame) -> bool:
+    @classmethod
+    def checkDataFrame(cls, dataFrame) -> pd.DataFrame:
         """
         Effettua il check del data frame in input con conseguente
         gestione di valori e della loro coerenza
         :param dataFrame:
         :return:
         """
-        return True
+        return dataFrame
