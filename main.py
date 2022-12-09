@@ -7,47 +7,18 @@ from calendar import monthrange
 
 if __name__ == '__main__':
     start = time.perf_counter()
-    zoneFilePath = "data/zone/taxi+_zone_lookup.csv"
 
     # anno e mese selezionato
-    year = {'2020', '2021', '2022'}
-    month = '07'
+    year = '2022'
+    month = '01'
+
+    zoneFilePath = "data/taxi+_zone_lookup.csv"
+    tripFilePath = f"data/yellow_tripdata_{year}-{month}.parquet"
 
     # Check TripDataframe con partenza e arrivi in Zonefile (Gennaio-2022)
-    dataSet_Trip = DataAnalyses(zoneFilePath,
-                                f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet").getTaxiTripDataFrame()
+    dataSet_Trip = DataAnalyses(zoneFilePath, tripFilePath, year, month)
 
-    # Zonefile dataset
-    dataSet_Zone = TaxiZoneFile(zoneFilePath).getDataFrame()
-
-    # Estrazione di solo colonne: Data, partenza, arrivo(serve?)
-    dfTrip = pd.DataFrame(dataSet_Trip, columns=['tpep_pickup_datetime', 'PULocationID'])
-
-    # Dizionario con id_zona: Borough
-    ZoneDict = dict(zip(dataSet_Zone.LocationID, dataSet_Zone.Borough))
-
-    # Sostituzione id_zona con Borough
-    dfTrip['PULocationID'] = dfTrip['PULocationID'].replace(ZoneDict)
-
-    # groupby giornaliero e somma per borough
-    dfTrip = dfTrip.groupby(by=[dfTrip['tpep_pickup_datetime'].dt.to_period('M'), 'PULocationID']).size().reset_index(
-        name='count')
-
-    # numero di giorni nel mese dell'anno selezionato per normalizzare la somma delle corse
-    num_days = monthrange(int(year), int(month))[1]
-
-    # normalizza su 30 il numero delle corse per borough (non faccio la media prima perchè potrebbe esserci un
-    # borough in cui in un giorno non ci sono corse)
-    dfTrip['count'] = round(dfTrip['count'].div(num_days)).astype(int)
-
-    # Rimuove tutte le righe che non appartengono a mese e anno selezionato
-    # Riassegna l'index da 0 a len(df) dopo aver rimosso non relative al mese in esame
-    dfTrip = dfTrip[~(dfTrip['tpep_pickup_datetime'] != f'{year}-{month}')].reset_index(drop=True)
-
-    # rinomino colonne dataframe
-    dfTrip.columns = ['year-month', 'borough', 'average']
-
-    print(dfTrip)
+    print(dataSet_Trip.getAverageDataFrame())
 
     end = time.perf_counter()
     print(f"Tempo di esecuzione: {round(end - start, 3)}")
