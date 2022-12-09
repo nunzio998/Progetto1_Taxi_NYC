@@ -20,11 +20,10 @@ class DataAnalyses:
         :param taxiZoneFileName:
         """
         self.taxiZone = TaxiZoneFile(taxiZoneFileName)
-        self.numZones = len(self.taxiZone.getDataFrame())
-        self.taxiTrip = self.checkedFile(TaxiTripFile(taxiTripFileName), self.numZones)
+        self.taxiTrip = self.checkedFile(TaxiTripFile(taxiTripFileName), self.taxiZone)
 
     @classmethod
-    def checkedFile(cls, taxiTripObject, numZones) -> TaxiTripFile:
+    def checkedFile(cls, taxiTripObject, taxiZoneObject) -> TaxiTripFile:
         """
         Metodo statico invocato nel construttore che controlla se ogni locationId (PU o DO) è
         compreso nel numero di borough presenti nella città di NewYork o di una qualsiasi città.
@@ -32,19 +31,19 @@ class DataAnalyses:
         :param taxiZoneObject:
         :return:
         """
+
         objPulito = taxiTripObject
-        i = 0
-        while i < len(taxiTripObject.getDataFrame()):
-            if objPulito.getDataFrame()['PULocationID'].get(i) < 0 or objPulito.getDataFrame()['PULocationID'].get(i) > numZones:
+        Min_locationID, Max_locationID = np.min(np.array(taxiZoneObject.getDataFrame()['LocationID'])), np.max(
+            np.array(taxiZoneObject.getDataFrame()['LocationID']))
+        PULocation = np.array(objPulito.getDataFrame()['PULocationID'])
+        DOLocation = np.array(objPulito.getDataFrame()['DOLocationID'])
+
+        for i in range(len(objPulito.getDataFrame())):
+            if not(Min_locationID <= PULocation[i] <= Max_locationID) or not(Min_locationID <= DOLocation[i] <= Max_locationID):
                 objPulito.getDataFrame().drop(i)
-                #print('ELIMINATO!!!!!!!!', pulito['PULocationID'].get(i))
-            if objPulito.getDataFrame()['DOLocationID'].get(i) < 0 or objPulito.getDataFrame()['DOLocationID'].get(i) > numZones:
-                objPulito.getDataFrame().drop(i)
-                #print('ELIMINATO!!!!!!!!', pulito['PULocationID'].get(i))
-            i += 1
         return objPulito
 
-    def getTaxiTripDataFrame(self) -> pd.DataFrame :
+    def getTaxiTripDataFrame(self) -> pd.DataFrame:
         return self.taxiTrip.getDataFrame()
 
     def getTaxiZoneDataFrame(self) -> pd.DataFrame:
