@@ -20,7 +20,7 @@ Prima di iniziare
 2. Come ogni attività di analisi dei dati, non esiste un modo unico e corretto per rispondere alle RQ. Poiché i risultati che otterrete per ogni RQ possono dipendere dalle scelte che farete durante l'analisi, è molto importante (e necessario) che descriviate ogni singola decisione che prenderete e tutti i passi che farete.
 3. All'inizio della vostra analisi, scegliete e indicate chiaramente quale borough considerate per la conduzione dell'analisi: il borough di partenza o quello di arrivo.
 4. Il vostro codice deve essere il più generico possibile. Deve essere in grado di funzionare per ogni computer/anno/mese/borough senza dover cambiare righe di codice.
-Research question
+## Research question
 In quale periodo dell'anno i taxi vengono utilizzati di più? Creare un file di risultati e un grafico che, per ogni mese, indichi il numero medio di viaggi registrati ogni giorno. A causa delle differenze tra le zone di New York, vogliamo visualizzare le stesse informazioni per ogni borough. Notate qualche differenza tra di loro? Qual è il mese con la media giornaliera più alta? E invece quello con la media giornaliera più bassa?
 Input: anno, mese*, borough*
 Output: file, grafico 
