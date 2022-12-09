@@ -33,13 +33,14 @@ class DataAnalyses:
         """
 
         objPulito = taxiTripObject
-        Min_locationID, Max_locationID = np.min(np.array(taxiZoneObject.getDataFrame()['LocationID'])), np.max(
-            np.array(taxiZoneObject.getDataFrame()['LocationID']))
+        Min_locationID, Max_locationID = np.min(np.array(taxiZoneObject.getDataFrame()['LocationID'])), \
+                                         np.max(np.array(taxiZoneObject.getDataFrame()['LocationID']))
         PULocation = np.array(objPulito.getDataFrame()['PULocationID'])
         DOLocation = np.array(objPulito.getDataFrame()['DOLocationID'])
 
         for i in range(len(objPulito.getDataFrame())):
-            if not(Min_locationID <= PULocation[i] <= Max_locationID) or not(Min_locationID <= DOLocation[i] <= Max_locationID):
+            if not (Min_locationID <= PULocation[i] <= 240) or not (Min_locationID <= DOLocation[i] <= 240):
+                print(i, PULocation[i], DOLocation[i])
                 objPulito.getDataFrame().drop(i)
         return objPulito
 
