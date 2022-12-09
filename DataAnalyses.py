@@ -39,7 +39,8 @@ class DataAnalyses:
         DOLocation = np.array(objPulito.getDataFrame()['DOLocationID'])
 
         for i in range(len(objPulito.getDataFrame())):
-            if not (Min_locationID <= PULocation[i] <= Max_locationID) or not (Min_locationID <= DOLocation[i] <= Max_locationID):
+            if not (Min_locationID <= PULocation[i] <= Max_locationID) or not (
+                    Min_locationID <= DOLocation[i] <= Max_locationID):
                 objPulito.getDataFrame().drop(i)
         return objPulito
 
