@@ -43,6 +43,8 @@ def line_chart(source):
         )
         return (lines + points + tooltips).interactive()
 
+    # serve per avere l'asse x del grafico responsive in base all'ampiezza dell'intervallo temporale selezionato
+    source['year-month'] = pd.to_datetime(source['year-month'])
 
     chart = get_chart(source)
 
