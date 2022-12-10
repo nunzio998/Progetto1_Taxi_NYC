@@ -24,15 +24,13 @@ class AverageFileMaker:
             self.dataFrames[anno] = self.generateYearDataframe(anno)
 
     def generateYearDataframe(self, year) -> pd.DataFrame:
-        yearDataFrame = pd.DataFrame({"year-month": [],
-                                      "borough": [],
-                                      "average": []
-                                      })
+        yearDataFrame = []
         for month in self.monthsList:
             dtToAdd = DataAnalyses(self.zoneFilePath,
                                    f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
                                    year, month).getBoroughAverageDataFrame()
-            yearDataFrame = self.mergeDataFrames(yearDataFrame, dtToAdd)
+            yearDataFrame.append(dtToAdd)
+        yearDataFrame = self.mergeDataFrames(yearDataFrame)
         return yearDataFrame
 
     def makeFiles(self):  # TODO metodo da implementare
@@ -45,13 +43,11 @@ class AverageFileMaker:
     def getYearDataFrame(self, year):
         return self.dataFrames[year]
 
-    def mergeDataFrames(self, dt1, dt2):  # FIXME il metodo non funziona correttamente
+    def mergeDataFrames(self, dt):  # FIXME il metodo non funziona correttamente
         """
         Metodo che aggiunge gli elementi del secondo dataframe al primo e lo restituisce
-        :param dt1:
-        :param dt2:
+        :param dt:
         :return:
         """
-        for i in range(len(dt2)):
-            dt1.append(dt2.loc[i])
-        return dt1
+        dt = pd.concat(dt, ignore_index=True)
+        return dt
