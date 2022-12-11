@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     # anno e mese selezionato
     year = '2022'
-    month = '01'
+    month = '02'
 
     zoneFilePath = "data/taxi+_zone_lookup.csv"
     tripFilePath = f"data/yellow_tripdata_{year}-{month}.parquet"
@@ -18,7 +18,8 @@ if __name__ == '__main__':
     # Check TripDataframe con partenza e arrivi in Zonefile (Gennaio-2022)
     dataSet_Trip = DataAnalyses(zoneFilePath, tripFilePath, year, month)
 
-    print(dataSet_Trip.getAverageDataFrame())
+    print(dataSet_Trip.getBoroughAverageDataFrame(),"\n","-----------------------------")
+    print(dataSet_Trip.getNewYorkAverageDataFrame(), "\n", "-----------------------------")
 
     end = time.perf_counter()
     print(f"Tempo di esecuzione: {round(end - start, 3)}")
