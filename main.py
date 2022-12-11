@@ -1,12 +1,7 @@
-import DataAnalyses
 from AverageFileMaker import AverageFileMaker
-from TaxiTripFile import *
-from DataAnalyses import *
-import streamlit as st
-import time
-from calendar import monthrange
 
 if __name__ == '__main__':
-    analisi = AverageFileMaker(["2018"], ["01"])
+    analisi = AverageFileMaker(["2018", "2019"], ["01", "02", "03"])
     analisi.fillDataFrames()
-    print(analisi.getYearDataFrame('2018'))
+    print(analisi.getYearDataFrame('2018'), "\n")
+    print(analisi.getYearDataFrame('2019'))

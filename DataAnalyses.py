@@ -1,8 +1,7 @@
 from calendar import monthrange
 
-import pandas as pd
 import numpy as np
-import matplotlib as pl
+import pandas as pd
 
 from TaxiTripFile import TaxiTripFile
 from TaxiZoneFile import TaxiZoneFile
