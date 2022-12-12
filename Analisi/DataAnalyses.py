@@ -3,8 +3,8 @@ from calendar import monthrange
 import numpy as np
 import pandas as pd
 
-from TaxiTripFile import TaxiTripFile
-from TaxiZoneFile import TaxiZoneFile
+from File.TaxiTripFile import TaxiTripFile
+from File.TaxiZoneFile import TaxiZoneFile
 
 
 class DataAnalyses:

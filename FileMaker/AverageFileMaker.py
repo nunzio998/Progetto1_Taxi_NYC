@@ -1,6 +1,6 @@
 import pandas as pd
 
-from DataAnalyses import DataAnalyses
+from Analisi.DataAnalyses import DataAnalyses
 
 
 class AverageFileMaker:
