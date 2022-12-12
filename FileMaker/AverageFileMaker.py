@@ -50,10 +50,14 @@ class AverageFileMaker:
 
     def writeFiles(self):
         """
-        Metodo che si occupa di scrivere un file per ogni elemento del dizionario di dataframe. Ovvero per ogni
-        anno che vuole essere analizzato. I file saranno scritti in una cartella denominata "output" in formato CSV.
+        Metodo che si occupa di scrivere un unico file csv relativo alle medie (average.csv) che contenga tutti i
+        dataframe memorizzati nel dizionario di dataframe.
         :return:
         """
-
+        dtTmp = []
         for anno in self.dataFrames.keys():
-            self.dataFrames[anno].to_csv(f"output/average_{anno}.csv")
+            dtTmp.append(self.dataFrames[anno])
+            # self.dataFrames[anno].to_csv(f"output/average_{anno}.csv")
+            # istruzione per scrivere file diversi per ogni anno
+        dtTmp = self.mergeDataFrames(dtTmp)
+        dtTmp.to_csv(f"output/average.csv")
