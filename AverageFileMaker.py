@@ -33,17 +33,13 @@ class AverageFileMaker:
         yearDataFrame = self.mergeDataFrames(yearDataFrame)
         return yearDataFrame
 
-    def makeFiles(self):  # TODO metodo da implementare
-        # richiama fillDataFrames()
-        pass
-
     def getDataFrames(self):
         return self.dataFrames
 
     def getYearDataFrame(self, year):
         return self.dataFrames[year]
 
-    def mergeDataFrames(self, dt):  # FIXME il metodo non funziona correttamente
+    def mergeDataFrames(self, dt):
         """
         Metodo che aggiunge gli elementi del secondo dataframe al primo e lo restituisce
         :param dt:
