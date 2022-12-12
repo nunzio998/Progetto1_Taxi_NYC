@@ -51,3 +51,13 @@ class AverageFileMaker:
         """
         dt = pd.concat(dt, ignore_index=True)
         return dt
+
+    def writeFiles(self):
+        """
+        Metodo che si occupa di scrivere un file per ogni elemento del dizionario di dataframe. Ovvero per ogni
+        anno che vuole essere analizzato. I file saranno scritti in una cartella denominata "output" in formato CSV.
+        :return:
+        """
+
+        for anno in self.dataFrames.keys():
+            self.dataFrames[anno].to_csv(f"output/average_{anno}.csv")
