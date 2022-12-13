@@ -121,4 +121,7 @@ class DataAnalyses:
         # rinomino colonne dataframe
         dfTrip.columns = ['year-month', 'average']
 
+        # aggiunge la colonna borough per conformità con il resto del DataSet
+        dfTrip.insert(1,'borough',['New York'])
+
         return dfTrip
