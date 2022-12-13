@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     # anno e mese selezionato
     year = '2022'
-    month = '02'
+    month = '01'
 
     zoneFilePath = "data/taxi+_zone_lookup.csv"
     tripFilePath = f"data/yellow_tripdata_{year}-{month}.parquet"
