@@ -29,6 +29,9 @@ class AverageFileMaker:
             dtToAdd = DataAnalyses(self.zoneFilePath,
                                    f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
                                    year, month).getBoroughAverageDataFrame()
+            dtToAdd2 = DataAnalyses(self.zoneFilePath,f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
+                                    year, month).getNewYorkAverageDataFrame()
+            dtToAdd = pd.concat([dtToAdd, dtToAdd2], axis=0, ignore_index=True)
             yearDataFrame.append(dtToAdd)
         yearDataFrame = self.mergeDataFrames(yearDataFrame)
         return yearDataFrame
