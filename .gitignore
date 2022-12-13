@@ -3,4 +3,5 @@ __pycache__/
 data/
 results/
 .idea/
+output/
 .DS_Store
