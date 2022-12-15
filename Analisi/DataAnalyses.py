@@ -100,37 +100,3 @@ class DataAnalyses:
         # rinomino colonne dataframe
         dfTrip.columns = ['year-month', 'borough', 'average']
         return dfTrip
-
-    def getNewYorkAverageDataFrame(self) -> pd.DataFrame:
-        """
-        Metodo che calcola la media di corse giornaliere di tutta la città di NewYork e restituisce il
-        DataFrame relativo.
-        :return:
-        """
-        dataSet_Trip = self.getTaxiTripDataFrame()
-        dataSet_Zone = self.getTaxiZoneDataFrame()
-
-        # Estrazione di solo colonne: Data, partenza
-        dfTrip = pd.DataFrame(dataSet_Trip, columns=['tpep_pickup_datetime', 'PULocationID'])
-
-        # groupby mensile
-        dfTrip = dfTrip.groupby(by=dfTrip['tpep_pickup_datetime'].dt.to_period('M'))\
-            .size().reset_index(name='count')
-
-        # Rimuove tutte le righe che non appartengono a mese e anno selezionato
-        # Riassegna l'index da 0 a len(df) dopo aver rimosso le righe non relative al mese in esame
-        dfTrip = dfTrip[dfTrip['tpep_pickup_datetime'] == f'{self.year}-{self.month}'].reset_index(drop=True)
-
-        # numero di giorni del mese dell'anno selezionato per normalizzare la somma delle corse
-        num_days = monthrange(int(self.year), int(self.month))[1]
-
-        # normalizza il numero delle corse sul numero di giorni del mese
-        dfTrip['count'] = round(dfTrip['count'].div(num_days)).astype(int)
-
-        # rinomino colonne dataframe
-        dfTrip.columns = ['year-month', 'average']
-
-        # aggiunge la colonna borough per conformità con il resto del DataSet
-        dfTrip.insert(1,'borough',['New York'])
-
-        return dfTrip
