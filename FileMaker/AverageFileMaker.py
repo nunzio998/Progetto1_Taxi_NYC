@@ -14,59 +14,23 @@ class AverageFileMaker:
     def __init__(self, yearsList, monthsList):
         self.yearsList = yearsList
         self.monthsList = monthsList
-        self.dataFrames = {}
-        for anno in self.yearsList:
-            self.dataFrames[anno] = pd.DataFrame.empty  # dataframe sul quale aggiungo i risultati delle varie analisi
         self.zoneFilePath = "data/zone/taxi+_zone_lookup.csv"
 
-    def fillDataFrames(self):
+    def generateListDataframe(self) -> list:
         """
-        metodo che scorre tutti gli anni selezionati e per ognuno di essi richiama il metodo generateYearDataFrame
-        e 'riempie' l'elemento con chiave 'anno' nel dizionario di dataframe col relativo dataframe.
-        :return:
-        """
-        for anno in self.yearsList:
-            self.dataFrames[anno] = self.generateYearDataframe(anno)
-
-    def generateYearDataframe(self, year) -> pd.DataFrame:
-        '''
         Metodo che genera il dataframe relativo all'anno dato in input al metodo.
         :param year:
         :return:
-        '''
-        yearDataFrame = []
-        for month in self.monthsList:
-            dtToAdd = DataAnalyses(self.zoneFilePath,
-                                   f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
-                                   year, month).getBoroughAverageDataFrame()
-            yearDataFrame.append(dtToAdd)
-        yearDataFrame = self.mergeDataFrames(yearDataFrame)
-        return yearDataFrame
-
-    def getDataFrames(self):
         """
-        Metodo che ritorna il dizionario contenente i dataframe di tutti gli anni selezionati
-        dall'utente.
-        :return:
-        """
-        return self.dataFrames
-
-    def getYearDataFrame(self, year):
-        """
-        Metodo che ritorna il dataframe relativo all'anno selezionato in input
-        :param year:
-        :return:
-        """
-        return self.dataFrames[year]
-
-    def mergeDataFrames(self, dt):
-        """
-        Metodo che aggiunge gli elementi del secondo dataframe al primo e lo restituisce
-        :param dt:
-        :return:
-        """
-        dt = pd.concat(dt, ignore_index=True)
-        return dt
+        listDataFrame = []
+        for year in self.yearsList:
+            for month in self.monthsList:
+                print(year, month)
+                dtToAdd = DataAnalyses(self.zoneFilePath,
+                                       f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
+                                       year, month).getBoroughAverageDataFrame()
+                listDataFrame.append(dtToAdd)
+        return listDataFrame
 
     def writeFiles(self):
         """
@@ -74,10 +38,6 @@ class AverageFileMaker:
         dataframe memorizzati nel dizionario di dataframe.
         :return:
         """
-        dtTmp = []
-        for anno in self.dataFrames.keys():
-            dtTmp.append(self.dataFrames[anno])
-            # self.dataFrames[anno].to_csv(f"output/average_{anno}.csv")
-            # istruzione per scrivere file diversi per ogni anno
-        dtTmp = self.mergeDataFrames(dtTmp)
+        listToConcat = self.generateListDataframe()
+        dtTmp = pd.concat(listToConcat, ignore_index=True)
         dtTmp.to_csv(f"output/average.csv")
