@@ -3,7 +3,7 @@ import datetime
 import pandas as pd
 import streamlit as st
 
-from util_app import util_chart, util_filter
+from utils_app import util_chart, util_filter
 
 source_path = 'C:/Users/matte/Desktop/App/data.csv'
 # source_path = 'data.csv'
