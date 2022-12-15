@@ -20,12 +20,23 @@ class AverageFileMaker:
         self.zoneFilePath = "data/zone/taxi+_zone_lookup.csv"
 
     def fillDataFrames(self):
+        """
+        metodo che scorre tutti gli anni selezionati e per ognuno di essi richiama il metodo generateYearDataFrame
+        e 'riempie' l'elemento con chiave 'anno' nel dizionario di dataframe col relativo dataframe.
+        :return:
+        """
         for anno in self.yearsList:
             self.dataFrames[anno] = self.generateYearDataframe(anno)
 
     def generateYearDataframe(self, year) -> pd.DataFrame:
+        '''
+        Metodo che genera il dataframe relativo all'anno dato in input al metodo.
+        :param year:
+        :return:
+        '''
         yearDataFrame = []
         for month in self.monthsList:
+            print(year,month)
             dtToAdd = DataAnalyses(self.zoneFilePath,
                                    f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
                                    year, month).getBoroughAverageDataFrame()
@@ -37,9 +48,19 @@ class AverageFileMaker:
         return yearDataFrame
 
     def getDataFrames(self):
+        """
+        Metodo che ritorna il dizionario contenente i dataframe di tutti gli anni selezionati
+        dall'utente.
+        :return:
+        """
         return self.dataFrames
 
     def getYearDataFrame(self, year):
+        """
+        Metodo che ritorna il dataframe relativo all'anno selezionato in input
+        :param year:
+        :return:
+        """
         return self.dataFrames[year]
 
     def mergeDataFrames(self, dt):

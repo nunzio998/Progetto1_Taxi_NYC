@@ -48,9 +48,19 @@ class DataAnalyses:
         return objPulito
 
     def getTaxiTripDataFrame(self) -> pd.DataFrame:
+        """
+        Metodo che ritorna il dataframe relativo al file parquet delle corse che si vuole analizzare e
+        che si è dato in input al costruttore della classe al momento in cui essa è stata instanziata.
+        :return:
+        """
         return self.taxiTrip.getDataFrame()
 
     def getTaxiZoneDataFrame(self) -> pd.DataFrame:
+        """
+        Metodo che ritorna il dataframe relativo al file csv dei borough che si vuole analizzare e
+        che si è dato in input al costruttore della classe al momento in cui essa è stata instanziata.
+        :return:
+        """
         return self.taxiZone.getDataFrame()
 
     def getBoroughAverageDataFrame(self) -> pd.DataFrame:
