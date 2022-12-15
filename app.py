@@ -1,23 +1,22 @@
 import datetime
 
-import altair as alt
 import pandas as pd
 import streamlit as st
+
 from util_app import util_chart, util_filter
-import getData
 
-
-source_path = 'C:/Users/matte/Desktop/Magistrale/Programmazione/Guarrasi/Progetto1_Taxi_NYC/results/data.csv'
+source_path = 'C:/Users/matte/Desktop/App/data.csv'
+# source_path = 'data.csv'
 source = pd.read_csv(source_path, index_col=0)
 
-st.set_page_config(layout='wide')
+st.set_page_config(page_title="Taxi NYC", page_icon=":oncoming_taxi:", layout='wide')
 
 st.title('Taxi NYC')
 
 year = datetime.date.today().year
-years = list(range(2018, year+1))
+years = list(range(2014, year + 1))
 years_selected = st.sidebar.multiselect(
-    'Select years', years, years[:3], help='Years to analyze'
+    'Select years', years, years[:4], help='Years to analyze'
 )
 
 # st.write('You selected:', years_selected)
@@ -43,9 +42,17 @@ Queens_check = st.sidebar.checkbox('Queens', value=True)
 Staten_Island_check = st.sidebar.checkbox('Staten Island', value=True)
 Unknown_check = st.sidebar.checkbox('Unknown', value=True)
 
+if years_selected == [] or months_selected == []:
 
-source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict, Bronx_check, Brooklyn_check,
-                                          EWR_check, Manhattan_check, Queens_check, Staten_Island_check, Unknown_check)
+    st.warning('Select at least one month and one year', icon="⚠️")
+else:
+    source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict, Bronx_check,
+                                              Brooklyn_check,
+                                              EWR_check, Manhattan_check, Queens_check, Staten_Island_check,
+                                              Unknown_check)
+    if Bronx_check or Brooklyn_check or EWR_check or Manhattan_check or Queens_check or Staten_Island_check or Unknown_check:
+        util_chart.line_chart(source_filtered)
+    else:
+        st.warning('Select at least one borough', icon="⚠️")
 
-if Bronx_check or Brooklyn_check or EWR_check or Manhattan_check or Queens_check or Staten_Island_check or Unknown_check:
-    util_chart.line_chart(source_filtered)
+

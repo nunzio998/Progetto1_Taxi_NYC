@@ -1,3 +1,4 @@
+import time
 import streamlit as st
 import pandas as pd
 import altair as alt
@@ -25,6 +26,12 @@ def line_chart(source):
         # Draw points on the line, and highlight based on selection
         points = lines.transform_filter(hover).mark_circle(size=100)
 
+        pointsDot = alt.Chart(data).mark_point(filled=True, opacity=1).encode(
+                x="year-month",
+                y="average",
+                color="borough",
+            )
+
         # Draw a rule at the location of the selection
         tooltips = (
             alt.Chart(data)
@@ -36,12 +43,12 @@ def line_chart(source):
                 tooltip=[
                     alt.Tooltip("year-month", title="Date"),
                     alt.Tooltip("borough", title="Borough"),
-                    alt.Tooltip("average", title="Average")
+                    alt.Tooltip("average", title="Average Trip")
                 ],
             )
             .add_selection(hover)
         )
-        return (lines + points + tooltips).interactive()
+        return (lines + points + pointsDot + tooltips).interactive()
 
     # serve per avere l'asse x del grafico responsive in base all'ampiezza dell'intervallo temporale selezionato
     source['year-month'] = pd.to_datetime(source['year-month'])
@@ -52,3 +59,4 @@ def line_chart(source):
         chart.interactive(),
         use_container_width=True
     )
+
