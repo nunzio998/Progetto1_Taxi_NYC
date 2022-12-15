@@ -1,10 +1,13 @@
+import time
+
 from FileMaker.AverageFileMaker import AverageFileMaker
 
 if __name__ == '__main__':
-    analisi = AverageFileMaker(["2018", "2019", "2020", "2021"],
-                               ["01", "02", "03", "04", "05", "06",
-                                "07", "08", "09", "10", "11", "12"])
-    analisi.fillDataFrames()
-    # print(analisi.getYearDataFrame('2018'), "\n")
-    # print(analisi.getYearDataFrame('2019'))
+    start = time.perf_counter()
+
+    analisi = AverageFileMaker(["2020"], ["03", "04", "05"])
     analisi.writeFiles()
+
+    end = time.perf_counter()
+
+    print(f"Tempo di esecuzione: {round(end - start, 3)}")
