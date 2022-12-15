@@ -34,5 +34,4 @@ def filter_data(source, years_selected, month_selected, monthsDict, Bronx_check,
     if not Unknown_check:
         sourceFiltered.drop(sourceFiltered[sourceFiltered['borough'] == 'Unknown'].index, inplace=True)
 
-
     return sourceFiltered
