@@ -46,13 +46,13 @@ if years_selected == [] or months_selected == []:
 
     st.warning('Select at least one month and one year', icon="⚠️")
 else:
-    source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict, Bronx_check,
-                                              Brooklyn_check,
-                                              EWR_check, Manhattan_check, Queens_check, Staten_Island_check,
-                                              Unknown_check)
+    source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict,
+                                                                Bronx_check,
+                                                                Brooklyn_check,
+                                                                EWR_check, Manhattan_check, Queens_check,
+                                                                Staten_Island_check,
+                                                                Unknown_check)
     if Bronx_check or Brooklyn_check or EWR_check or Manhattan_check or Queens_check or Staten_Island_check or Unknown_check:
         util_chart.line_chart(source_filtered)
     else:
         st.warning('Select at least one borough', icon="⚠️")
-
-
