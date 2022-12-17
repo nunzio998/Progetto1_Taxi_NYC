@@ -57,5 +57,6 @@ class AverageFileMaker:
         listToConcat = self.generateListDataframe()
         # se ci sono righe da scrivere nel file average.csv, le scrive in coda
         if listToConcat:
-            dtTmp = pd.concat(listToConcat, ignore_index=True)
-            dtTmp.to_csv(f"output/average.csv")
+            dtEx = pd.read_csv("output/average.csv", index_col=0)
+            dtTmp = pd.concat([dtEx]+listToConcat, ignore_index=True)
+            dtTmp.to_csv("output/average.csv")
