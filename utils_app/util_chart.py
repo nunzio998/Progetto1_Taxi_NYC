@@ -20,6 +20,11 @@ def line_chart(source):
                 x="year-month",
                 y="average",
                 color="borough",
+                strokeDash=alt.condition(
+                    alt.datum.borough == 'Boroughs Average',
+                    alt.value([5, 5]),  # dashed line: 5 pixels  dash + 5 pixels space
+                    alt.value([0]),  # solid line
+                )
             )
         )
 

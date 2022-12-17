@@ -35,7 +35,7 @@ def filter_data(source, years_selected, month_selected, monthsDict, Bronx_check,
         sourceFiltered.drop(sourceFiltered[sourceFiltered['borough'] == 'Unknown'].index, inplace=True)
 
     boroughMean = sourceFiltered.groupby('year-month')['average'].sum().reset_index()
-    boroughMean.insert(1, "borough", "Borough Average", True)
+    boroughMean.insert(1, "borough", "Boroughs Average", True)
     sourceFiltered = pd.concat([sourceFiltered, boroughMean], ignore_index=True)
 
     return sourceFiltered
