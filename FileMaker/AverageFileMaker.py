@@ -16,6 +16,20 @@ class AverageFileMaker:
         self.monthsList = monthsList
         self.zoneFilePath = "data/zone/taxi+_zone_lookup.csv"
 
+    @classmethod
+    def isInCsv(cls, year: str, month: str) -> bool:
+        """
+        Metodo che prende in ingresso due stringhe rappresentanti anno e mese di cui è richiesto il check
+        e restituisce un valore booleano che indica se il mese dell'anno ha una corrispondenza nel file average.csv
+        con un'analisi già svolta
+
+        :param year: str di 4 caratteri: l'anno di cui è richiesto il check
+        :param month: str di 2 caratteri: il mese di cui è richiesto il check
+        :return: bool True se il mese dell'anno ha una corrispondenza nel file average.csv, False altrimenti
+        """
+        average = pd.read_csv("./output/average.csv")
+        return f"{year}-{month}" in set(average["year-month"])
+
     def generateListDataframe(self) -> list:
         """
         Metodo che genera il dataframe relativo all'anno dato in input al metodo.
@@ -25,7 +39,9 @@ class AverageFileMaker:
         listDataFrame = []
         for year in self.yearsList:
             for month in self.monthsList:
-                print(year, month)
+                # se l'analisi mese-anno correnti è già presente nel file csv nel caso salta all'iterazione successiva
+                if self.isInCsv(year,month):
+                    continue
                 dtToAdd = DataAnalyses(self.zoneFilePath,
                                        f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
                                        year, month).getBoroughAverageDataFrame()
@@ -39,5 +55,7 @@ class AverageFileMaker:
         :return:
         """
         listToConcat = self.generateListDataframe()
-        dtTmp = pd.concat(listToConcat, ignore_index=True)
-        dtTmp.to_csv(f"output/average.csv")
+        # se ci sono righe da scrivere nel file average.csv, le scrive in coda
+        if listToConcat:
+            dtTmp = pd.concat(listToConcat, ignore_index=True)
+            dtTmp.to_csv(f"output/average.csv")
