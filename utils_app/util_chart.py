@@ -32,10 +32,10 @@ def line_chart(source):
         points = lines.transform_filter(hover).mark_circle(size=100)
 
         pointsDot = alt.Chart(data).mark_point(filled=True, opacity=1).encode(
-                x="year-month",
-                y="average",
-                color="borough",
-            )
+            x="year-month",
+            y="average",
+            color="borough",
+        )
 
         # Draw a rule at the location of the selection
         tooltips = (
@@ -60,8 +60,47 @@ def line_chart(source):
 
     chart = get_chart(source)
 
+    annotation_layer = chartMinMax(source)
+
     st.altair_chart(
-        chart.interactive(),
+        (chart + annotation_layer).interactive(),
         use_container_width=True
     )
 
+
+def chartMinMax(dataFrame: pd.DataFrame):
+    """
+
+    :param dataFrame:
+    :return:
+    """
+    # Genero un dataframe con 2 rows, una con il minimo e una con il massimo
+    # considerando i parametri selzionati
+    dfFiltered = dataFrame[~(dataFrame['borough'] != f'Boroughs Average')].reset_index(drop=True)
+    dfMax = dfFiltered[~(dfFiltered['average'] != dfFiltered['average'].max())].reset_index(drop=True)
+    dfMin = dfFiltered[~(dfFiltered['average'] != dfFiltered['average'].min())].reset_index(drop=True)
+    dfMinMax = pd.concat([dfMin, dfMax], ignore_index=True)
+
+    # Input annotations
+    ANNOTATIONS = [
+        (f"{dfMinMax['year-month'][0]}", "Minimum based on selected parameters"),
+        (f"{dfMinMax['year-month'][1]}", "Maximum based on selected parameters"),
+    ]
+
+    # Create a chart with annotations
+    annotations_df = pd.DataFrame(ANNOTATIONS, columns=["year-month", "event"])
+    annotations_df.date = pd.to_datetime(annotations_df['year-month'])
+    annotations_df["y"] = [dfMinMax['average'][0], dfMinMax['average'][1]]
+
+    annotation_layer = (
+        alt.Chart(annotations_df)
+        .mark_text(size=20, text="⭕")
+        .encode(
+            x="year-month:T",
+            y=alt.Y("y:Q"),
+            tooltip=["event"],
+        )
+        .interactive()
+    )
+
+    return annotation_layer
