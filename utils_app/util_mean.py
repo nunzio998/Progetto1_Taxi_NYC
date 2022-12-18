@@ -1,13 +1,22 @@
-import pandas as pd
+import time
+from calendar import monthrange
 import streamlit as st
+import pandas as pd
+import altair as alt
 
 
 def meanPeriodBoroughSelected(dataFrame: pd.DataFrame):
     """
-    :param dataFrame:
+    Riceve il Dataframe dei dati graficati e restituisce il avalore medio sul periodo e sui borough selezionati
+    :param dataFrame: input daataframe
     :return:
     """
-    st.write(dataFrame)
-    st.write(2)
-    Average = 2
-    return st.write(f"Media sul periodo e borough selezionato: {Average}")
+    dfFiltered = dataFrame[~(dataFrame['borough'] != f'Boroughs Average')].reset_index(drop=True)
+    numDays = []
+    numTrip = list(dfFiltered['average'])
+    for date in dfFiltered['year-month']:
+        numDays.append(monthrange(int(date.year), int(date.month))[1])
+
+    weightedAverage = sum(numDays[g] * numTrip[g] for g in range(len(numDays))) / sum(numDays)
+
+    return f"Average number of daily trips based on the selected parameters: {round(weightedAverage)}"
