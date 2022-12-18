@@ -1,8 +1,5 @@
-import time
 from calendar import monthrange
-import streamlit as st
 import pandas as pd
-import altair as alt
 
 
 def meanPeriodBoroughSelected(dataFrame: pd.DataFrame):
