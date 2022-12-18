@@ -33,14 +33,13 @@ class AverageFileMaker:
     def generateListDataframe(self) -> list:
         """
         Metodo che genera il dataframe relativo all'anno dato in input al metodo.
-        :param year:
         :return:
         """
         listDataFrame = []
         for year in self.yearsList:
             for month in self.monthsList:
                 # se l'analisi mese-anno correnti è già presente nel file csv nel caso salta all'iterazione successiva
-                if self.isInCsv(year,month):
+                if self.isInCsv(year, month):
                     continue
                 dtToAdd = DataAnalyses(self.zoneFilePath,
                                        f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
@@ -58,5 +57,5 @@ class AverageFileMaker:
         # se ci sono righe da scrivere nel file average.csv, le scrive in coda
         if listToConcat:
             dtEx = pd.read_csv("output/average.csv", index_col=0)
-            dtTmp = pd.concat([dtEx]+listToConcat, ignore_index=True)
+            dtTmp = pd.concat([dtEx] + listToConcat, ignore_index=True)
             dtTmp.to_csv("output/average.csv")
