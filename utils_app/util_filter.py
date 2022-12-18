@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def filter_data(source, years_selected, month_selected, monthsDict, Bronx_check, Brooklyn_check, EWR_check,
                 Manhattan_check, Queens_check, Staten_Island_check, Unknown_check):
     months_number = []

@@ -1,8 +1,6 @@
 import datetime
-
 import pandas as pd
 import streamlit as st
-
 from utils_app import util_chart, util_filter, util_mean
 
 source_path = 'C:/Users/matte/Desktop/App/data.csv'
