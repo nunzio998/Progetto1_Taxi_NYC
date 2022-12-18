@@ -88,17 +88,17 @@ def chartMinMax(dataFrame: pd.DataFrame):
     ]
 
     # Create a chart with annotations
-    annotations_df = pd.DataFrame(ANNOTATIONS, columns=["year-month", "event"])
+    annotations_df = pd.DataFrame(ANNOTATIONS, columns=["year-month", "info"])
     annotations_df.date = pd.to_datetime(annotations_df['year-month'])
     annotations_df["y"] = [dfMinMax['average'][0], dfMinMax['average'][1]]
 
     annotation_layer = (
         alt.Chart(annotations_df)
-        .mark_text(size=20, text="⭕")
+        .mark_text(size=17, text="⭕")
         .encode(
             x="year-month:T",
             y=alt.Y("y:Q"),
-            tooltip=["event"],
+            tooltip=["info"],
         )
         .interactive()
     )
