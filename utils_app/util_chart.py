@@ -1,7 +1,6 @@
-import time
-import streamlit as st
-import pandas as pd
 import altair as alt
+import pandas as pd
+import streamlit as st
 
 
 def line_chart(source):
