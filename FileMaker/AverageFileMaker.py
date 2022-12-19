@@ -54,10 +54,18 @@ class AverageFileMaker:
         """
         listToConcat = self.generateListDataframe()
         # se ci sono righe da scrivere nel file average.csv, le scrive in coda
-        dtTmp = pd.concat(listToConcat, ignore_index=True)
-        if listToConcat and os.path.exists("output/average.csv"):
-            dtEx = pd.read_csv("output/average.csv", index_col=0)
-            dtTmp = pd.concat([dtEx, dtTmp], ignore_index=True)
-        if not os.path.exists("output/"):
-            os.mkdir("output/")
-        dtTmp.to_csv("output/average.csv")
+
+        if listToConcat:
+            dtTmp = pd.concat(listToConcat, ignore_index=True)
+            if os.path.exists("output/"):
+                if os.path.exists("output/average.csv"):
+                    dtEx = pd.read_csv("output/average.csv", index_col=0)
+                    dtEx["year-month"] = pd.to_datetime(dtEx["year-month"]).dt.to_period("M")
+                    dtTmp = pd.concat([dtEx, dtTmp], ignore_index=True)
+            else:
+                os.mkdir("output/")
+            print(dtTmp)
+            dtTmp = dtTmp.sort_values(by="year-month").reset_index(drop=True)
+            print(dtTmp)
+            dtTmp.to_csv("output/average.csv")
+

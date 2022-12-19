@@ -15,7 +15,7 @@ class DataAnalyses:
 
     def __init__(self, year, month):
         """
-        il costruttore di questa classe riceve in input i nomi dei file con i quali
+        il costruttore di questa classe riceve in input mese e anno con cui
         istanzia i due oggetti che userà in seguito per effettuare l'analisi dati.
         :param taxiTripFileName:
         :param taxiZoneFileName:
