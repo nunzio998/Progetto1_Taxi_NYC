@@ -1,5 +1,6 @@
-import pandas as pd
+import os
 
+import pandas as pd
 from Analisi.DataAnalyses import DataAnalyses
 
 
@@ -34,11 +35,12 @@ class AverageFileMaker:
         Metodo che genera il dataframe relativo all'anno dato in input al metodo.
         :return:
         """
+        exists_path = os.path.exists("output/average.csv")
         listDataFrame = []
         for year in self.yearsList:
             for month in self.monthsList:
                 # se l'analisi mese-anno correnti è già presente nel file csv nel caso salta all'iterazione successiva
-                if self.isInCsv(year, month):
+                if exists_path and self.isInCsv(year, month):
                     continue
                 dtToAdd = DataAnalyses(year, month).getBoroughAverageDataFrame()
                 listDataFrame.append(dtToAdd)
@@ -52,7 +54,10 @@ class AverageFileMaker:
         """
         listToConcat = self.generateListDataframe()
         # se ci sono righe da scrivere nel file average.csv, le scrive in coda
-        if listToConcat:
+        dtTmp = pd.concat(listToConcat, ignore_index=True)
+        if listToConcat and os.path.exists("output/average.csv"):
             dtEx = pd.read_csv("output/average.csv", index_col=0)
-            dtTmp = pd.concat([dtEx] + listToConcat, ignore_index=True)
-            dtTmp.to_csv("output/average.csv")
+            dtTmp = pd.concat([dtEx, dtTmp], ignore_index=True)
+        if not os.path.exists("output/"):
+            os.mkdir("output/")
+        dtTmp.to_csv("output/average.csv")
