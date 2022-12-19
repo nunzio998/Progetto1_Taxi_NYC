@@ -13,14 +13,15 @@ class DataAnalyses:
     di queste classi recupera i dati di cui necessita per effettuare le analisi necessarie.
     """
 
-    def __init__(self, taxiZoneFileName, taxiTripFileName, year, month):
+    def __init__(self, year, month):
         """
         il costruttore di questa classe riceve in input i nomi dei file con i quali
         istanzia i due oggetti che userà in seguito per effettuare l'analisi dati.
         :param taxiTripFileName:
         :param taxiZoneFileName:
         """
-        self.taxiZone = TaxiZoneFile(taxiZoneFileName)
+        self.taxiZone = TaxiZoneFile("data/zone/taxi+_zone_lookup.csv")
+        taxiTripFileName = f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet"
         self.taxiTrip = self.checkedFile(TaxiTripFile(taxiTripFileName), self.taxiZone)
         self.year = year
         self.month = month

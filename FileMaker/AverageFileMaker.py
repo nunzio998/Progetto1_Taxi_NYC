@@ -14,7 +14,6 @@ class AverageFileMaker:
     def __init__(self, yearsList, monthsList):
         self.yearsList = yearsList
         self.monthsList = monthsList
-        self.zoneFilePath = "data/zone/taxi+_zone_lookup.csv"
 
     @classmethod
     def isInCsv(cls, year: str, month: str) -> bool:
@@ -41,9 +40,7 @@ class AverageFileMaker:
                 # se l'analisi mese-anno correnti è già presente nel file csv nel caso salta all'iterazione successiva
                 if self.isInCsv(year, month):
                     continue
-                dtToAdd = DataAnalyses(self.zoneFilePath,
-                                       f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet",
-                                       year, month).getBoroughAverageDataFrame()
+                dtToAdd = DataAnalyses(year, month).getBoroughAverageDataFrame()
                 listDataFrame.append(dtToAdd)
         return listDataFrame
 
