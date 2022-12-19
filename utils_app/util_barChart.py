@@ -20,6 +20,7 @@ def bar_chart(dataFrame: pd.DataFrame, monthDict: dict):
     reversedMonthDict = dict(map(lambda key: (monthDict[key], key), monthDict.keys()))
     dfFiltered['year-month'] = dfFiltered['year-month'].replace(reversedMonthDict)
     dfFiltered = dfFiltered.groupby(['year-month', 'borough']).mean('average').reset_index()
+    dfFiltered['average'] = round(dfFiltered['average']).astype(int)
 
     barPlot = (
         alt.Chart(dfFiltered)
