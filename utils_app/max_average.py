@@ -2,6 +2,13 @@ import pandas as pd
 
 
 def max_month_average(source: pd.DataFrame) -> str:
+    """
+    funzione che prende in input il dataframe ottenuto dall'analisi e restiuisce
+    il mese in cui c'è stato il maggiore numero di corse, ovvero quello in cui la average
+    è più alta.
+    :param source:
+    :return:
+    """
     dict_tmp = {}
 
     for i in range(len(source)):
