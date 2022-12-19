@@ -1,7 +1,7 @@
 import datetime
 import pandas as pd
 import streamlit as st
-from utils_app import util_chart, util_filter, util_mean
+from utils_app import util_chart, util_filter, util_mean, util_barChart
 
 source_path = 'C:/Users/matte/Desktop/App/data.csv'
 # source_path = 'data.csv'
@@ -35,6 +35,7 @@ Manhattan_check = st.sidebar.checkbox('Manhattan', value=True)
 Queens_check = st.sidebar.checkbox('Queens', value=True)
 Staten_Island_check = st.sidebar.checkbox('Staten Island', value=True)
 Unknown_check = st.sidebar.checkbox('Unknown', value=True)
+Barchart_check = st.sidebar.checkbox('Bar Chart')
 
 if years_selected == [] or months_selected == []:
 
@@ -49,5 +50,8 @@ else:
     if Bronx_check or Brooklyn_check or EWR_check or Manhattan_check or Queens_check or Staten_Island_check or Unknown_check:
         util_chart.line_chart(source_filtered)
         st.subheader(util_mean.meanPeriodBoroughSelected(source_filtered))
+        if Barchart_check:
+            util_barChart.bar_chart(source_filtered, monthsDict)
     else:
         st.warning('Select at least one borough', icon="⚠️")
+
