@@ -59,10 +59,10 @@ def line_chart(source):
 
     chart = get_chart(source)
 
-    annotation_layer = chartMinMax(source)
+    annotation_layer_min, annotation_layer_max = chartMinMax(source)
 
     st.altair_chart(
-        (chart + annotation_layer).interactive(),
+        (chart + annotation_layer_min + annotation_layer_max).interactive(),
         use_container_width=True
     )
 
@@ -78,28 +78,45 @@ def chartMinMax(dataFrame: pd.DataFrame):
     dfFiltered = dataFrame[~(dataFrame['borough'] != f'Boroughs Average')].reset_index(drop=True)
     dfMax = dfFiltered[~(dfFiltered['average'] != dfFiltered['average'].max())].reset_index(drop=True)
     dfMin = dfFiltered[~(dfFiltered['average'] != dfFiltered['average'].min())].reset_index(drop=True)
-    dfMinMax = pd.concat([dfMin, dfMax], ignore_index=True)
 
     # Input annotations
-    ANNOTATIONS = [
-        (f"{dfMinMax['year-month'][0]}", "Minimum based on selected parameters"),
-        (f"{dfMinMax['year-month'][1]}", "Maximum based on selected parameters"),
-    ]
+    ANNOTATIONS_min = []
+    for i in range(len(dfMin)):
+        ANNOTATIONS_min.append(
+            (f"{dfMin['year-month'][i]}", "Minimum based on selected parameters", f"{dfMin['average'][i]}"))
+
+    ANNOTATIONS_max = []
+    for i in range(len(dfMax)):
+        ANNOTATIONS_max.append(
+            (f"{dfMax['year-month'][i]}", "Maximum based on selected parameters", f"{dfMin['average'][i]}"))
 
     # Create a chart with annotations
-    annotations_df = pd.DataFrame(ANNOTATIONS, columns=["year-month", "info"])
-    annotations_df.date = pd.to_datetime(annotations_df['year-month'])
-    annotations_df["y"] = [dfMinMax['average'][0], dfMinMax['average'][1]]
+    annotations_df_min = pd.DataFrame(ANNOTATIONS_min, columns=["year-month", "info", "value"])
+    annotations_df_min["y"] = dfMin['average']
 
-    annotation_layer = (
-        alt.Chart(annotations_df)
-        .mark_text(size=17, text="⭕")
+    annotations_df_max = pd.DataFrame(ANNOTATIONS_max, columns=["year-month", "info", "value"])
+    annotations_df_max["y"] = dfMax['average']
+
+    annotation_layer_min = (
+        alt.Chart(annotations_df_min)
+        .mark_text(size=9, text="🟡")
         .encode(
             x="year-month:T",
             y=alt.Y("y:Q"),
-            tooltip=["info"],
+            tooltip=["info", "value"],
         )
         .interactive()
     )
 
-    return annotation_layer
+    annotation_layer_max = (
+        alt.Chart(annotations_df_max)
+        .mark_text(size=9, text="🟢")
+        .encode(
+            x="year-month:T",
+            y=alt.Y("y:Q"),
+            tooltip=["info", "value"],
+        )
+        .interactive()
+    )
+
+    return annotation_layer_min, annotation_layer_max
