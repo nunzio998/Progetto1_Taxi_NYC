@@ -2,6 +2,7 @@ import datetime
 import pandas as pd
 import streamlit as st
 from utils_app import util_chart, util_filter, util_mean, util_barChart
+from FileMaker.AverageFileMaker import AverageFileMaker
 
 source_path = 'C:/Users/matte/Desktop/App/data.csv'
 # source_path = 'data.csv'
@@ -25,6 +26,14 @@ monthsDict = dict(zip(months, range(1, 13)))
 months_selected = st.sidebar.multiselect(
     'Select months', months, months[:2], help='Months to analyze'
 )
+months_number = []
+
+for month in months_selected:
+    if month in monthsDict:
+        months_number.append(f'{monthsDict[month]:02d}')
+analisi = AverageFileMaker(years_selected, months_number)
+analisi.writeFiles()
+
 
 st.sidebar.subheader('Select Borough')
 
