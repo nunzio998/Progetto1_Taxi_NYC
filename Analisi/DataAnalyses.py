@@ -38,7 +38,7 @@ class DataAnalyses:
 
         objPulito = taxiTripObject
         Min_locationID, Max_locationID = np.min(np.array(taxiZoneObject.getDataFrame()['LocationID'])), \
-                                         np.max(np.array(taxiZoneObject.getDataFrame()['LocationID']))
+            np.max(np.array(taxiZoneObject.getDataFrame()['LocationID']))
         PULocation = np.array(objPulito.getDataFrame()['PULocationID'])
         DOLocation = np.array(objPulito.getDataFrame()['DOLocationID'])
 
