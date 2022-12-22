@@ -64,8 +64,6 @@ class AverageFileMaker:
                     dtTmp = pd.concat([dtEx, dtTmp], ignore_index=True)
             else:
                 os.mkdir("output/")
-            print(dtTmp)
             dtTmp = dtTmp.sort_values(by="year-month").reset_index(drop=True)
-            print(dtTmp)
             dtTmp.to_csv("output/average.csv")
 
