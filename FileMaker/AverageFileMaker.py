@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+
 from Analisi.DataAnalyses import DataAnalyses
 
 
