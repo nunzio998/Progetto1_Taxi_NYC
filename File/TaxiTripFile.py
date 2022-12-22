@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 
 
 class TaxiTripFile:
@@ -7,7 +8,10 @@ class TaxiTripFile:
     e fornire il medoto per recuperare tale dato.
     """
     def __init__(self, file):
-        self.dataFrame = pd.read_parquet(file)
+        try:
+            self.dataFrame = pd.read_parquet(file)
+        except FileNotFoundError:
+            st.warning("Invalid selected parameters.")
 
     def getDataFrame(self) -> pd.DataFrame:
         """

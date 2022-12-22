@@ -1,6 +1,7 @@
 from calendar import monthrange
 
 import pandas as pd
+import streamlit as st
 
 
 def meanPeriodBoroughSelected(dataFrame: pd.DataFrame):
@@ -15,7 +16,13 @@ def meanPeriodBoroughSelected(dataFrame: pd.DataFrame):
     for date in dfFiltered['year-month']:
         numDays.append(monthrange(int(date.year), int(date.month))[1])
 
-    # calcolo media pesata
-    weightedAverage = sum(numDays[g] * numTrip[g] for g in range(len(numDays))) / sum(numDays)
+    try:
+        # calcolo media pesata
+        weightedAverage = sum(numDays[g] * numTrip[g] for g in range(len(numDays))) / sum(numDays)
+    except ZeroDivisionError:
+        st.warning("Invalid Params")
 
-    return f"Average number of daily trips based on the selected parameters: {round(weightedAverage)}"
+    try:
+        return f"Average number of daily trips based on the selected parameters: {round(weightedAverage)}"
+    except UnboundLocalError:
+        st.warning("Invalid Paramss")

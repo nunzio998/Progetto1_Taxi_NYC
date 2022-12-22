@@ -26,8 +26,10 @@ months_selected = st.sidebar.multiselect(
     'Select months', months, months[:2], help='Months to analyze'
 )
 
-util_analyses.check_analyses(years_selected, months_selected, monthsDict)
-
+try:
+    util_analyses.check_analyses(years_selected, months_selected, monthsDict)
+except Exception:
+    st.warning("INVALID")
 
 st.sidebar.subheader('Select Borough')
 

@@ -2,6 +2,7 @@ from calendar import monthrange
 
 import numpy as np
 import pandas as pd
+import streamlit as st
 
 from File.TaxiTripFile import TaxiTripFile
 from File.TaxiZoneFile import TaxiZoneFile
@@ -20,11 +21,14 @@ class DataAnalyses:
         :param taxiTripFileName:
         :param taxiZoneFileName:
         """
-        self.taxiZone = TaxiZoneFile("data/zone/taxi+_zone_lookup.csv")
-        taxiTripFileName = f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet"
-        self.taxiTrip = self.checkedFile(TaxiTripFile(taxiTripFileName), self.taxiZone)
-        self.year = year
-        self.month = month
+        try:
+            self.taxiZone = TaxiZoneFile("data/zone/taxi+_zone_lookup.csv")
+            taxiTripFileName = f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet"
+            self.taxiTrip = self.checkedFile(TaxiTripFile(taxiTripFileName), self.taxiZone)
+            self.year = year
+            self.month = month
+        except AttributeError:
+            st.warning("Invalid selected parameters.")
 
     @classmethod
     def checkedFile(cls, taxiTripObject, taxiZoneObject) -> TaxiTripFile:

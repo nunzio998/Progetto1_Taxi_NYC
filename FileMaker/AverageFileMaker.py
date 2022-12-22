@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+import streamlit as st
 
 from Analisi.DataAnalyses import DataAnalyses
 
@@ -38,13 +39,16 @@ class AverageFileMaker:
         """
         exists_path = os.path.exists("output/average.csv")
         listDataFrame = []
-        for year in self.yearsList:
-            for month in self.monthsList:
-                # se l'analisi mese-anno correnti è già presente nel file csv nel caso salta all'iterazione successiva
-                if exists_path and self.isInCsv(year, month):
-                    continue
-                dtToAdd = DataAnalyses(year, month).getBoroughAverageDataFrame()
-                listDataFrame.append(dtToAdd)
+        try:
+            for year in self.yearsList:
+                for month in self.monthsList:
+                    # se l'analisi mese-anno correnti è già presente nel file csv nel caso salta all'iterazione successiva
+                    if exists_path and self.isInCsv(year, month):
+                        continue
+                    dtToAdd = DataAnalyses(year, month).getBoroughAverageDataFrame()
+                    listDataFrame.append(dtToAdd)
+        except AttributeError:
+            st.warning("invalid")
         return listDataFrame
 
     def writeFiles(self):
@@ -67,4 +71,3 @@ class AverageFileMaker:
                 os.mkdir("output/")
             dtTmp = dtTmp.sort_values(by="year-month").reset_index(drop=True)
             dtTmp.to_csv("output/average.csv")
-

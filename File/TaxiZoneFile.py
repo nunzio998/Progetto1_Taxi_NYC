@@ -1,5 +1,5 @@
 import pandas as pd
-
+import streamlit as st
 
 class TaxiZoneFile:
     """
@@ -8,7 +8,10 @@ class TaxiZoneFile:
     """
 
     def __init__(self, file):
-        self.dataFrame = pd.read_csv(file)
+        try:
+            self.dataFrame = pd.read_csv(file)
+        except FileNotFoundError:
+            st.warning("Invalid selected parameters.")
 
     def getDataFrame(self) -> pd.DataFrame:
         """
