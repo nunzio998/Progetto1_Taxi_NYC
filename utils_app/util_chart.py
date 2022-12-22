@@ -99,7 +99,7 @@ def chartMinMax(dataFrame: pd.DataFrame):
 
     annotation_layer_min = (
         alt.Chart(annotations_df_min)
-        .mark_text(size=9, text="🟡")
+        .mark_text(size=9, text="🔴")
         .encode(
             x="year-month:T",
             y=alt.Y("y:Q"),
