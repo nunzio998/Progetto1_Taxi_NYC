@@ -1,4 +1,4 @@
-from Analisi.DataAnalyses import DataAnalyses
+import os
 import datetime
 import streamlit as st
 
@@ -7,7 +7,6 @@ def checkDatetimeFile(year, month):
     """
     Funzione che gestisce la restituisce un messaggio di errore
     nel caso si richiede la visualizzazione di un anno un mese anomalo
-    :param strMonth:
     :param year:
     :param month:
     :return:
@@ -36,10 +35,7 @@ def check_dataset(yearsList: list, monthsList: list, monthsDict: dict):
             months_number.append(f'{monthsDict[month]:02d}')
     for year in yearsList:
         for month in months_number:
-            try:
-                DataAnalyses(year, month)
-            except FileNotFoundError:
-
+            if not os.path.isfile(f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet"):
                 checkDatetimeFile(year, month)
                 return False
     return True
