@@ -7,6 +7,7 @@ def checkDatetimeFile(year, month):
     """
     Funzione che gestisce la restituisce un messaggio di errore
     nel caso si richiede la visualizzazione di un anno un mese anomalo
+    :param strMonth:
     :param year:
     :param month:
     :return:
@@ -16,7 +17,7 @@ def checkDatetimeFile(year, month):
     if dt_selected >= dt_today:
         return st.warning('We are not here to predict the future', icon="🔮")
     else:
-        return st.warning('Non hai il dataset salvato', icon="⚠️")
+        return st.warning(f'Some files related to your request are not in your dataset', icon="⚠️")
 
 
 def check_dataset(yearsList: list, monthsList: list, monthsDict: dict):
@@ -33,12 +34,12 @@ def check_dataset(yearsList: list, monthsList: list, monthsDict: dict):
     for month in monthsList:
         if month in monthsDict:
             months_number.append(f'{monthsDict[month]:02d}')
-
     for year in yearsList:
         for month in months_number:
             try:
                 DataAnalyses(year, month)
             except FileNotFoundError:
+
                 checkDatetimeFile(year, month)
                 return False
     return True
