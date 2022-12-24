@@ -14,7 +14,7 @@ def checkDatetimeFile(year, month):
     """
     dt_selected = datetime.datetime.strptime(f'{year}-{month}', '%Y-%m')
     dt_today = datetime.datetime.combine(datetime.date.today(), datetime.time(0, 0))
-    if dt_selected >= dt_today:
+    if dt_selected > dt_today:
         return st.warning('We are not here to predict the future', icon="🔮")
     else:
         return st.warning(f'Some files related to your request are not in your dataset', icon="⚠️")
