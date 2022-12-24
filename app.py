@@ -3,8 +3,6 @@ import pandas as pd
 import streamlit as st
 from utils_app import util_chart, util_filter, util_mean, util_barChart, util_analyses, util_dataset
 
-source_path = 'output/average.csv'
-
 st.set_page_config(page_title="Taxi NYC", page_icon=":oncoming_taxi:", layout='wide')
 
 st.title('Taxi NYC')
@@ -36,12 +34,13 @@ Unknown_check = st.sidebar.checkbox('Unknown', value=True)
 
 if util_dataset.check_dataset(years_selected, months_selected, monthsDict):
     util_analyses.check_analyses(years_selected, months_selected, monthsDict)
-    source = pd.read_csv(source_path, index_col=0)
 
     if years_selected == [] or months_selected == []:
 
         st.warning('Select at least one month and one year', icon="⚠️")
     else:
+        source_path = 'output/average.csv'
+        source = pd.read_csv(source_path, index_col=0)
         source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict,
                                                   Bronx_check,
                                                   Brooklyn_check,
