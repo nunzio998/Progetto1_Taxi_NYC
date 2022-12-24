@@ -12,7 +12,7 @@ st.title('Taxi NYC')
 year = datetime.date.today().year
 years = list(range(2009, year + 1))
 years_selected = st.sidebar.multiselect(
-    'Select years', years[::-1], years[-2:], help='Years to analyze'
+    'Select years', years[::-1], years[-3:-1], help='Years to analyze'
 )
 
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -21,7 +21,7 @@ months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 monthsDict = dict(zip(months, range(1, 13)))
 
 months_selected = st.sidebar.multiselect(
-    'Select months', months, months[:2], help='Months to analyze'
+    'Select months', months, months[:4], help='Months to analyze'
 )
 
 st.sidebar.subheader('Select Borough')
