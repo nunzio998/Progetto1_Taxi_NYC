@@ -68,4 +68,3 @@ class AverageFileMaker:
             dtTmp = dtTmp.sort_values(by="year-month").reset_index(drop=True)
             print(dtTmp)
             dtTmp.to_csv("output/average.csv")
-
