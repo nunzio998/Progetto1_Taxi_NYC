@@ -4,8 +4,6 @@ import streamlit as st
 from utils_app import util_chart, util_filter, util_mean, util_barChart, util_analyses
 
 source_path = 'output/average.csv'
-# source_path = 'data.csv'
-source = pd.read_csv(source_path, index_col=0)
 
 st.set_page_config(page_title="Taxi NYC", page_icon=":oncoming_taxi:", layout='wide')
 
@@ -23,7 +21,7 @@ months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 monthsDict = dict(zip(months, range(1, 13)))
 
 months_selected = st.sidebar.multiselect(
-    'Select months', months, months[:2], help='Months to analyze'
+    'Select months', months, months[:1], help='Months to analyze'
 )
 
 util_analyses.check_analyses(years_selected, months_selected, monthsDict)
@@ -38,6 +36,9 @@ Manhattan_check = st.sidebar.checkbox('Manhattan', value=True)
 Queens_check = st.sidebar.checkbox('Queens', value=True)
 Staten_Island_check = st.sidebar.checkbox('Staten Island', value=True)
 Unknown_check = st.sidebar.checkbox('Unknown', value=True)
+
+
+source = pd.read_csv(source_path, index_col=0)
 
 if years_selected == [] or months_selected == []:
 
