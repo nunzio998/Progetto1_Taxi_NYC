@@ -11,6 +11,13 @@
 ### Output
 - Nel file in formato csv viene salvato un dataframe così composto: ||year-month||borough||average||
 
+### Info
+- Per eseguire il programma portarsi nella directory del progetto ed eseguire da terminale
+    ```
+    streamlit run app.py
+    ```
+- La prima volta che si esegue il programma verrà creata automaticamente la directory _/output_ con il file _average.csv_
+
 ### Structure
 ```
 .
