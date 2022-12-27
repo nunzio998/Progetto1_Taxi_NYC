@@ -9,7 +9,7 @@ from File.TaxiZoneFile import TaxiZoneFile
 
 class DataAnalyses:
     """
-    La classe istanzia le classi relative al file .parquet e al .css e tramite i metodi
+    La classe istanzia le classi relative al file .parquet e al .csv e tramite i metodi
     di queste classi recupera i dati di cui necessita per effettuare le analisi necessarie.
     """
 
@@ -17,8 +17,8 @@ class DataAnalyses:
         """
         il costruttore di questa classe riceve in input mese e anno con cui
         istanzia i due oggetti che userà in seguito per effettuare l'analisi dati.
-        :param taxiTripFileName:
-        :param taxiZoneFileName:
+        :param year: anno su cui è richiesto di fare l'analisi
+        :param month: mese su cui è richiesto di fare l'analisi
         """
         self.taxiZone = TaxiZoneFile("data/zone/taxi+_zone_lookup.csv")
         taxiTripFileName = f"data/trip/{year}/yellow_tripdata_{year}-{month}.parquet"
@@ -31,8 +31,8 @@ class DataAnalyses:
         """
         Metodo statico invocato nel construttore che controlla se ogni locationId (PU o DO) è
         compreso nel numero di borough presenti nella città di NewYork o di una qualsiasi città.
-        :param taxiTripObject:
-        :param taxiZoneObject:
+        :param taxiTripObject: oggetto contenente le informazioni relative alle corse (trip)
+        :param taxiZoneObject: oggetto contenente le informazioni relative alle zone di NY
         :return:
         """
 

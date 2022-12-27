@@ -22,10 +22,10 @@ def checkDatetimeFile(year, month):
 def check_dataset(yearsList: list, monthsList: list, monthsDict: dict):
     """
     Funzione che fa l'analisi in caso di richiesta di un anno o un mese non
-    già analizzato ma presente nel daatset lcoale
-    :param yearsList:
-    :param monthsList:
-    :param monthsDict:
+    già analizzato ma presente nel datset locale
+    :param yearsList: lista di anni sui quali si vuole eseguire l'analisi
+    :param monthsList: lista di mesi sui quali si vuole eseguire l'analisi
+    :param monthsDict: dizionario per la conversione della lista di mesi (Jan, Feb, Mar...) in (01, 02, 03,...)
     :return:
     """
     months_number = []

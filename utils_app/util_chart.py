@@ -5,6 +5,12 @@ import altair as alt
 
 def line_chart(source):
     def get_chart(data):
+        """
+        Funzione che grafica un line-chart interattivo (tooltips) sulla base del dataframe filtrato sui parametri
+        selezioanti
+        :param data: dataframe filtrato del quale viene effettuato il line-chart
+        :return:
+        """
         hover = alt.selection_single(
             fields=["year-month"],
             nearest=True,
@@ -69,7 +75,8 @@ def line_chart(source):
 
 def chartMinMax(dataFrame: pd.DataFrame):
     """
-
+    Funzione che grafica tanti Red-dot e tanto Green-dot quanti sono i massimi e minimi assoluti del linechart che si
+    sta visualizzando
     :param dataFrame:
     :return:
     """

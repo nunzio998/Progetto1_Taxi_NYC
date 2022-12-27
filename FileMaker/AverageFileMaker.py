@@ -5,10 +5,14 @@ from Analisi.DataAnalyses import DataAnalyses
 
 class AverageFileMaker:
     """
-    Questa classe viene istanziata durante l'esecuzione passando come parametri le liste di anni e mesi che voglio
+    Questa classe viene istanziata durante l'esecuzione passando come parametri le liste di anni e mesi che si vogliono
     analizzare. Per ogni anno-mese questa classe istanzia DataAnalyses con la quale viene creato il dataframe relativo
-    a quel mese di quell'anno, che viene poi aggiunto ad un dizionario di dataframes che conterrà coppie
-    anno-dataframes. Con il seguente dizionario verranno poi generati i file csv relativi ad ogni anno selezionato.
+    a quel mese di quell'anno, che viene poi aggiunto ad una lista dataframes che verrà infine concatenata al fine di
+    ottenere un unico dataframe. Con il seguente dataframe verrà infine realizzato e archiviato il file .csv dei dati
+    analizzati.
+    In caso venisse rieseguito un programma che dia in ingresso una lista di anni e una lista di mesi, questa classe fa
+    l'analisi e archivia solamente i dati relativi ai parametri di ingresso che non erano già stati analizzati e
+    archiviati in precedenza
     """
 
     def __init__(self, yearsList, monthsList):
@@ -31,8 +35,9 @@ class AverageFileMaker:
 
     def generateListDataframe(self) -> list:
         """
-        Metodo che genera il dataframe relativo all'anno dato in input al metodo.
-        :return:
+        Metodo che genera una lista di dataframes relativi al parametri di ingresso integrando, se già calcolati in
+        precedenza, i dati già archiviati.
+        :return: lista di dataframe analizzati
         """
         exists_path = os.path.exists("output/average.csv")
         listDataFrame = []
@@ -47,8 +52,11 @@ class AverageFileMaker:
 
     def writeFiles(self):
         """
-        Metodo che si occupa di scrivere un unico file csv relativo alle medie (average.csv) che contenga tutti i
-        dataframe memorizzati nel dizionario di dataframe.
+        Metodo che si occupa di:
+         - verificare se esiste una directory ./output e in caso se esiste un file average.csv, in caso contrario
+           le crea
+         - scrivere un unico file csv relativo alle medie (average.csv) che contenga tutti i
+           dataframe memorizzati nella lista di dataframes.
         :return:
         """
         listToConcat = self.generateListDataframe()

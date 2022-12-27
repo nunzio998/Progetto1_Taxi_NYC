@@ -5,8 +5,8 @@ import altair as alt
 
 def bar_chart(dataFrame: pd.DataFrame, monthDict: dict):
     """
-    Riceve il Dataframe dei dati e grafica un bar chart:
-    :param monthDict:
+    Riceve il Dataframe dei dati e grafica un bar dinamico in base ai parametri selezionati
+    :param monthDict: dizionario per la conversione della lista di mesi (Jan, Feb, Mar...) in (01, 02, 03,...)
     :param dataFrame: input dataframe
     :return:
     """

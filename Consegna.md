@@ -1,4 +1,4 @@
-Progetto1_Taxi_NYC
+# Progetto1_Taxi_NYC
 
 Come si muovono i taxi a New York? In questo progetto svolgiamo un'analisi dei taxi a New York.
 In particolare, siamo curiosi di rispondere ad alcune specifiche Research Questions (RQ) che possono aiutare i tassisti
@@ -39,7 +39,7 @@ Il vostro codice deve essere il più generico possibile.
 Deve essere in grado di funzionare per ogni computer/anno/mese/borough senza dover cambiare righe di codice.
 
 
-Research question
+## Research question
 In quale periodo dell'anno i taxi vengono utilizzati di più? Creare un file di risultati e un grafico che,
 per ogni mese, indichi il numero medio di viaggi registrati ogni giorno.
 A causa delle differenze tra le zone di New York, vogliamo visualizzare le stesse informazioni per ogni borough.
