@@ -8,42 +8,43 @@
 . per l'input dell'anno: gli output (file e grafico) riguardano un singolo anno; se in input ci sono più anni, vengono restituiti tanti output (file, grafico) quanti sono gli anni
 
 ```
-  data
-    trip
-      ...
-      2021
-        yellow_tripdata_2021-01.parquet
-        yellow_tripdata_2021-02.parquet
-        ...
-      2022
-        yellow_tripdata_2022-01.parquet
-        ...
-    zone
-      taxi+_zone_lookup.csv
-  Analisi
-    __init__.py
-    DataAnalyses.py
-  File
-    __init__.py
-    TaxiTripFile.py
-    TaxiZoneFile.py
-  FileMaker
-    __init__.py
-    AverageFileMaker.py
-  output
-    average.csv
-  utils_app
-    __init__.py
-    util_analyses.py
-    util_barChart.py
-    util_chart.py
-    util_dataset.py
-    util_filter.py
-    util_mean.py
-  .gitignore
-  README.md
-  app.py
-  delete.py
-  requirements.txt
+.
+├── data
+│   ├── trip
+│   │   ├── ...
+│   │   ├── 2021
+│   │   │   ├── yellow_tripdata_2021-01.parquet
+│   │   │   ├── yellow_tripdata_2021-02.parquet
+│   │   │   └── ...
+│   │   └── 2022
+│   │       ├── yellow_tripdata_2022-01.parquet
+│   │       └── ...
+│   └── zone
+│       └── taxi+_zone_lookup.csv
+├── Analisi
+│   ├── __init__.py
+│   └── DataAnalyses.py
+├── File
+│   ├── __init__.py
+│   ├── TaxiTripFile.py
+│   └── TaxiZoneFile.py
+├── FileMaker
+│   ├── __init__.py
+│   └── AverageFileMaker.py
+├── output
+│   └── average.csv
+├── utils_app
+│   ├── __init__.py
+│   ├── util_analyses.py
+│   ├── util_barChart.py
+│   ├── util_chart.py
+│   ├── util_dataset.py
+│   ├── util_filter.py
+│   └── util_mean.py
+├── .gitignore
+├── README.md
+├── app.py
+├── delete.py
+└── requirements.txt
 ```
 
