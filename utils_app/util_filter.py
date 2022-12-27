@@ -5,11 +5,11 @@ def filter_data(source, years_selected, month_selected, monthsDict, Bronx_check,
                 Manhattan_check, Queens_check, Staten_Island_check, Unknown_check):
     """
     Funzione che filtra il dataset archiviato come .csv in base ai parametri selezionati tramite le box (anni e mesi)
-    e le check-box per i borough
-    :param source: dataset iniziale
-    :param years_selected: lista di anni selezionati
-    :param month_selected: lista di mesi selezionati
-    :param monthsDict: dizionario per la conversione della lista di mesi (Jan, Feb, Mar...) in (01, 02, 03,...)
+    e le check-box per i borough.
+    :param source: dataset iniziale.
+    :param years_selected: lista di anni selezionati.
+    :param month_selected: lista di mesi selezionati.
+    :param monthsDict: dizionario per la conversione della lista di mesi (Jan, Feb, Mar...) in (01, 02, 03,...).
     :param Bronx_check: check-box per la visualizzazione del borough Bronx...
     :param Brooklyn_check:
     :param EWR_check:
@@ -17,7 +17,7 @@ def filter_data(source, years_selected, month_selected, monthsDict, Bronx_check,
     :param Queens_check:
     :param Staten_Island_check:
     :param Unknown_check:
-    :return:
+    :return: dataframe sulla base dei parametri selezionati + dati selezionati aggregati
     """
     months_number = []
 
