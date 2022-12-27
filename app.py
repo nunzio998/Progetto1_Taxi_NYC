@@ -11,7 +11,6 @@ source_path = 'output/average.csv'
 
 st.title('Taxi NYC')
 
-
 year = datetime.date.today().year
 years = list(range(2009, year + 1))
 years_selected = st.sidebar.multiselect(
@@ -46,14 +45,14 @@ if util_dataset.check_dataset(years_selected, months_selected, monthsDict):
 
         st.warning('Select at least one month and one year', icon="⚠️")
     else:
-        source = pd.read_csv(source_path, index_col=0)
-        source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict,
-                                                  Bronx_check,
-                                                  Brooklyn_check,
-                                                  EWR_check, Manhattan_check, Queens_check,
-                                                  Staten_Island_check,
-                                                  Unknown_check)
         if Bronx_check or Brooklyn_check or EWR_check or Manhattan_check or Queens_check or Staten_Island_check or Unknown_check:
+            source = pd.read_csv(source_path, index_col=0)
+            source_filtered = util_filter.filter_data(source, years_selected, months_selected, monthsDict,
+                                                      Bronx_check,
+                                                      Brooklyn_check,
+                                                      EWR_check, Manhattan_check, Queens_check,
+                                                      Staten_Island_check,
+                                                      Unknown_check)
             util_chart.line_chart(source_filtered)
             st.subheader(util_mean.meanPeriodBoroughSelected(source_filtered))
             util_barChart.bar_chart(source_filtered, monthsDict)
