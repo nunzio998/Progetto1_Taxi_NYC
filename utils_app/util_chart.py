@@ -95,7 +95,7 @@ def chartMinMax(dataFrame: pd.DataFrame):
     ANNOTATIONS_max = []
     for i in range(len(dfMax)):
         ANNOTATIONS_max.append(
-            (f"{dfMax['year-month'][i]}", "Maximum based on selected parameters", f"{dfMin['average'][i]}"))
+            (f"{dfMax['year-month'][i]}", "Maximum based on selected parameters", f"{dfMax['average'][i]}"))
 
     # Create a chart with annotations
     annotations_df_min = pd.DataFrame(ANNOTATIONS_min, columns=["year-month", "info", "value"])
