@@ -3,8 +3,8 @@ import pandas as pd
 
 class TaxiZoneFile:
     """
-    La classe TaxiZoneFile ha il compito di leggere il file csv relativo ai borough di NewYork
-    e fornire il medoto per recuperare tale dato.
+    La classe TaxiZoneFile ha il compito di leggere il file .csv relativo ai borough di NewYork
+    e fornire il metodo per recuperare tale dato.
     """
 
     def __init__(self, file):

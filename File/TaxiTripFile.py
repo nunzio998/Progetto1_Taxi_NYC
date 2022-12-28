@@ -4,7 +4,7 @@ import pandas as pd
 class TaxiTripFile:
     """
     La classe TaxiTripFile ha il compito di leggere il file parquet relativo ai borough di NewYork
-    e fornire il medoto per recuperare tale dato.
+    e fornire il metodo per recuperare tale dato.
     """
     def __init__(self, file):
         self.dataFrame = pd.read_parquet(file)

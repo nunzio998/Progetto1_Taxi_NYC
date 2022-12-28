@@ -5,6 +5,12 @@ import streamlit as st
 
 def line_chart(source):
     def get_chart(data):
+        """
+        Funzione che grafica un line-chart interattivo (tooltips) sulla base del dataframe filtrato sui parametri
+        selezioanti
+        :param data: dataframe filtrato del quale viene effettuato il line-chart
+        :return:
+        """
         hover = alt.selection_single(
             fields=["year-month"],
             nearest=True,
@@ -69,7 +75,8 @@ def line_chart(source):
 
 def chartMinMax(dataFrame: pd.DataFrame):
     """
-
+    Funzione che grafica tanti Red-dot e tanto Green-dot quanti sono i massimi e minimi assoluti del linechart che si
+    sta visualizzando
     :param dataFrame:
     :return:
     """
@@ -88,21 +95,21 @@ def chartMinMax(dataFrame: pd.DataFrame):
     ANNOTATIONS_max = []
     for i in range(len(dfMax)):
         ANNOTATIONS_max.append(
-            (f"{dfMax['year-month'][i]}", "Maximum based on selected parameters", f"{dfMin['average'][i]}"))
+            (f"{dfMax['year-month'][i]}", "Maximum based on selected parameters", f"{dfMax['average'][i]}"))
 
     # Create a chart with annotations
     annotations_df_min = pd.DataFrame(ANNOTATIONS_min, columns=["year-month", "info", "value"])
-    annotations_df_min["y"] = dfMin['average']
+    annotations_df_min["average"] = dfMin['average']
 
     annotations_df_max = pd.DataFrame(ANNOTATIONS_max, columns=["year-month", "info", "value"])
-    annotations_df_max["y"] = dfMax['average']
+    annotations_df_max["average"] = dfMax['average']
 
     annotation_layer_min = (
         alt.Chart(annotations_df_min)
         .mark_text(size=9, text="🔴")
         .encode(
             x="year-month:T",
-            y=alt.Y("y:Q"),
+            y=alt.Y("average:Q"),
             tooltip=["info", "value"],
         )
         .interactive()
@@ -113,7 +120,7 @@ def chartMinMax(dataFrame: pd.DataFrame):
         .mark_text(size=9, text="🟢")
         .encode(
             x="year-month:T",
-            y=alt.Y("y:Q"),
+            y=alt.Y("average:Q"),
             tooltip=["info", "value"],
         )
         .interactive()
