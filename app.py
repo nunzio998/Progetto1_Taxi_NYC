@@ -1,6 +1,8 @@
 import datetime
+
 import pandas as pd
 import streamlit as st
+
 from utils_app import util_chart, util_filter, util_mean, util_barChart, util_analyses, util_dataset
 
 # main page settings: title, favicon, layout

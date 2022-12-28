@@ -1,6 +1,6 @@
+import altair as alt
 import pandas as pd
 import streamlit as st
-import altair as alt
 
 
 def bar_chart(dataFrame: pd.DataFrame, monthDict: dict):
